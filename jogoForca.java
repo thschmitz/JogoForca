@@ -319,12 +319,7 @@ class jogoForca {
                         break;
                     }
 
-                    for (int i = 0; i < 7; i++) {
-                        for (int j = 0; j < 15; j++) {
-                            System.out.print(boneco02[i][j]);
-                            }
-                        System.out.println();
-                    }
+
                 }else{
                     //AUMENTA O BONECO JOGO 1
                     switch(vidas){
@@ -417,14 +412,13 @@ class jogoForca {
 
                 //PRINT DO BONECO JOGO 2
                 for (int i = 0; i < 7; i++) {
-                    for (int j = 0; j < 30; j++) {
-                        System.out.print(boneco02[i][j]);
-                    }
+                for (int j = 0; j < 30; j++) {
+                    System.out.print(boneco02[i][j]);
                 }
                 System.out.println();
-                
+            }
             System.out.print("\n");
-
+                
             // IMPRIME A PALAVRA SORTEADA COM OS CARACTERES CORRETOS JOGO 2
             System.out.print("\nPrimeira palavra: ");
             for (int i=0; i<5; i++){
