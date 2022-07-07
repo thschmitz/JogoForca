@@ -308,7 +308,7 @@ class jogoForca {
                     }
                     
                     // Verifica se o usuario ganhou JOGO 1
-                    for(int i=0; i<palavraSorteadaLista01.length(); i++){
+                    for(int i=0; i<5; i++){
                         if(palavraSorteadaFormatadaLista01[i].equals("_ ")){
                             venceu01 = false;
                             break;
@@ -346,11 +346,11 @@ class jogoForca {
 
                         
                     //ADICIONA LETRA ERRADA AO VETOR JOGO 2
-                    
+
                     if(!palavraSorteadaLista02.equals(letra)){
-                        letrasErradas[contador] = letra;
+                        letrasErradas[contador01] = letra;
                     }
-                    contador++;
+                    contador01++;
                     vidas01--;
                 }
 
@@ -433,6 +433,16 @@ class jogoForca {
                             System.out.print(letrasErradas[i] + " ");
                         }
                     }
+                }
+                System.out.print("\n\n");
+
+
+                System.out.print("1: " + venceu01);
+                System.out.print("2: " + venceu02);
+
+                if(venceu02 == true && venceu01 == true){
+                    System.out.println("\n\nParabéns, vocês venceram!");
+                    break;
                 }
             } while(vidas01 > 0 && vidas02 > 0);
 
