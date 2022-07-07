@@ -21,7 +21,7 @@ class jogoForca {
 
         // JOGO01
         Boolean venceu = false, repetidoJogo01 = false;
-        int vidas = 6, contador = 0, modo=0, digitadosJogo01 = 0;
+        int vidas = 6, contador = 0, modo=0, digitadosJogo01 = 0, nivelDicaJogo01 = 0;
         String letra = "";
         String boneco[][], boneco02[][], listaChutesJogo01[], letrasErradas[];
         letrasErradas = new String[6];
@@ -94,9 +94,28 @@ class jogoForca {
             // INPUTS PARA O USUARIO DIGITAR COM REPETICOES ATE ACERTAR JOGO 1
             do{
                 repetidoJogo01 = false;
-                System.out.print("\n\nDigite uma letra (Sem acentos): ");
+                System.out.print("\nSe quiser dicas, digite 'help'!");
+                System.out.print("\nDigite uma letra (Sem acentos): ");
                 letra = entrada.next();
                 letra = letra.toUpperCase();
+
+                /*if(letra == "HELP"){
+                    nivelDicaJogo01++;
+                    switch(nivelDicaJogo01){
+                        case 1:
+                            System.out.println("\nDicas: \n1 - A palavra tem " + palavraSorteada.length() + " letras.");
+                            break;
+                        case 2:
+                            System.out.println("\nDicas: \n1 - A palavra secreta comeca com " + palavraSorteadaArray[0]);
+                            break;
+                        case 3:
+                            System.out.println("\nDicas: \n1 - A palavra secreta termina com " + palavraSorteadaArray[palavraSorteada.length()-1]);
+                            break;
+                        case 4:
+                            System.out.println("\nVoce nao tem mais dicas!");
+                            break;
+                    }
+                }*/
 
                 // VERIFICA SE A LETRA JÁ FOI CHUTADA JOGO 1
                 for(int i = 0; i<listaChutesJogo01.length; i++){
@@ -138,37 +157,40 @@ class jogoForca {
                         System.out.println();
                     }
                 }else{
-                    //AUMENTA O BONECO JOGO 1
-                    switch(vidas){
-                        case 6: 
-                            boneco[2][6] = "O";
-                            break;
-                        case 5: 
-                            boneco[3][6] = "|";
-                            break;
+                    if(!repetidoJogo01){
+                        //AUMENTA O BONECO JOGO 1
+                        switch(vidas){
+                            case 6: 
+                                boneco[2][6] = "O";
+                                break;
+                            case 5: 
+                                boneco[3][6] = "|";
+                                break;
+                                
+                            case 4: 
+                                boneco[3][5] = "/";
+                                break;
+                            case 3: 
+                                boneco[3][7] = "\\";
+                                break;
+                            case 2: 
+                                boneco[4][5] = "/";
+                                break;
+                            case 1:
+                                boneco[4][7] = "\\";
+                                break;
+                            case 0:
+                                break;
                             
-                        case 4: 
-                            boneco[3][5] = "/";
-                            break;
-                        case 3: 
-                            boneco[3][7] = "\\";
-                            break;
-                        case 2: 
-                            boneco[4][5] = "/";
-                            break;
-                        case 1:
-                            boneco[4][7] = "\\";
-                            break;
-                        case 0:
-                            break;
-                        
+                        }
+                            
+                        //ADICIONA LETRA ERRADA AO VETOR JOGO 1
+                        System.out.println("\nLetra não encontrada!");
+                        letrasErradas[contador] = letra;
+                        contador++;
+                        vidas--;
                     }
-                        
-                    //ADICIONA LETRA ERRADA AO VETOR JOGO 1
-                    System.out.println("\nLetra não encontrada!");
-                    letrasErradas[contador] = letra;
-                    contador++;
-                    vidas--;
+                    
 
                     // PRINTAGEM DO BONECO JOGO 1
                     for (int i = 0; i < 7; i++) {
@@ -199,7 +221,7 @@ class jogoForca {
                 }
 
                 
-                // VERIFICA SE A LETRA JA FOI CHUTADA JOGO 2
+                // VERIFICA SE A LETRA JA FOI CHUTADA JOGO 1
                 if(repetidoJogo01 == true){
                     System.out.println("\u001B[33m" + "\n\nLetra já foi chutada!" + "\u001B[0m");
                 }
