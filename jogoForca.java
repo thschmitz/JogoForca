@@ -31,10 +31,11 @@ class jogoForca {
         char resposta = ' ';
 
         // JOGO 02
-        boolean venceu01 = false, venceu02 = false, verificadoLista01=false, verificadoLista02=false, repetido=false;
+        boolean venceu01 = false, venceu02 = false, verificadoLista01=false, verificadoLista02=false, repetido=false, achouLetraFalta = false;
         int vidas01 = 6, vidas02 = 6, contador01 = 0, erroIndex = 0, digitados = 0;
         String listaChutes[];
         listaChutes = new String[12];
+        char querDica = ' ';
 
         //ESCOLHA DE MODO DE JOGO (1 e 2)
         System.out.println("Os modos de jogo são: \n1 - Modo padrão\n2 - Modo dueto");
@@ -93,29 +94,46 @@ class jogoForca {
             
             // INPUTS PARA O USUARIO DIGITAR COM REPETICOES ATE ACERTAR JOGO 1
             do{
+                // SISTEMA DE DICA JOGO 1
+                if(vidas < 3){
+                    System.out.println("\n");
+                    System.out.println("\u001B[33m" + "\nSO LHE RESTA " + vidas + " VIDA(S)!!!\n" + "\u001B[0m");
+                    System.out.print("\u001B[34m" + "Quer uma dica? (S/N) : " + "\u001B[0m");
+                    querDica = entrada.next().charAt(0);
+
+                    if(querDica == 'S'){
+                        nivelDicaJogo01 = 1;
+                        Random randPalavraMostrar = new Random();
+                        int letraSorteadaMostrar = 0;
+                        while(!achouLetraFalta){
+                            letraSorteadaMostrar = randPalavraMostrar.nextInt(palavraSorteada.length());
+                            if(palavraSorteadaFormatada[letraSorteadaMostrar].equals("_ ")){
+                                achouLetraFalta = true;
+                            }
+                        }
+                        
+                        switch(nivelDicaJogo01){
+                            case 1:
+                                System.out.print("\n");
+                                System.out.println("\u001B[32m" + "A letra " + palavraSorteadaArray[letraSorteadaMostrar] + " está na posição " + (letraSorteadaMostrar+1) + " da palavra secreta." + "\u001B[0m");
+                                palavraSorteadaFormatada[letraSorteadaMostrar] = palavraSorteadaArray[letraSorteadaMostrar] + " ";
+                                break;
+                        }
+
+                        for (int i = 0; i < palavraSorteada.length(); i++) {
+                            System.out.print(palavraSorteadaFormatada[i]);
+                        }
+
+                        System.out.println();
+                    }
+
+
+                }
+                System.out.print("\n");
                 repetidoJogo01 = false;
-                System.out.print("\nSe quiser dicas, digite 'help'!");
                 System.out.print("\nDigite uma letra (Sem acentos): ");
                 letra = entrada.next();
                 letra = letra.toUpperCase();
-
-                /*if(letra == "HELP"){
-                    nivelDicaJogo01++;
-                    switch(nivelDicaJogo01){
-                        case 1:
-                            System.out.println("\nDicas: \n1 - A palavra tem " + palavraSorteada.length() + " letras.");
-                            break;
-                        case 2:
-                            System.out.println("\nDicas: \n1 - A palavra secreta comeca com " + palavraSorteadaArray[0]);
-                            break;
-                        case 3:
-                            System.out.println("\nDicas: \n1 - A palavra secreta termina com " + palavraSorteadaArray[palavraSorteada.length()-1]);
-                            break;
-                        case 4:
-                            System.out.println("\nVoce nao tem mais dicas!");
-                            break;
-                    }
-                }*/
 
                 // VERIFICA SE A LETRA JÁ FOI CHUTADA JOGO 1
                 for(int i = 0; i<listaChutesJogo01.length; i++){
@@ -215,7 +233,7 @@ class jogoForca {
                     System.out.println("As letras erradas até o momento são: " );
                     for (int i=0; i< 6; i++){
                         if(letrasErradas[i] != null){
-                            System.out.print(letrasErradas[i] + " ");
+                            System.out.print("\u001B[31m" + letrasErradas[i] + " " + "\u001B[0m");
                         }
                     }
                 }
