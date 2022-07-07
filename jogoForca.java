@@ -30,8 +30,8 @@ class jogoForca {
         char resposta = ' ';
 
         // JOGO 02
-        boolean venceu01 = false, venceu02 = false, venceuReal = false;
-        int vidas01 = 6, vidas02 = 6, contador01 = 0, contador02 = 0;
+        boolean venceu01 = false, venceu02 = false, verificadoLista01=false, verificadoLista02=false;
+        int vidas01 = 6, vidas02 = 6, contador01 = 0, erroIndex = 0;
 
         //ESCOLHA DE MODO DE JOGO (1 e 2)
         System.out.println("Os modos de jogo são: \n1 - Modo padrão\n2 - Modo dueto");
@@ -290,17 +290,17 @@ class jogoForca {
 
             // COMECO DOS CHUTES JOGO 2
             do{
+                verificadoLista01 = false;
+                verificadoLista02 = false;
                 System.out.print("\n\nDigite uma letra (Sem acentos): ");
                 letra = entrada.next();
                 letra = letra.toUpperCase();
 
                 System.out.println("\n");
-                System.out.println("Palavra: " + palavraSorteadaLista01);
-                System.out.println("Letra1: " + palavraSorteadaLista01.contains("A"));
-                System.out.println("Palavra2: " + palavraSorteadaLista02);
-                System.out.println("\n");
+
                 // VERIFICA SE A LETRA JA FOI DIGITADA ANTES JOGO 2
                 if(palavraSorteadaLista01.contains(letra)){
+                    verificadoLista01 = true;
                     for (int i=0; i<5; i++){
                         if(palavraSorteadaLista01.charAt(i) == letra.charAt(0)){
                             palavraSorteadaFormatadaLista01[i] = letra;
@@ -343,18 +343,16 @@ class jogoForca {
                             break;
                         
                     }
-
+                    verificadoLista01 = false;
                         
                     //ADICIONA LETRA ERRADA AO VETOR JOGO 2
 
-                    if(!palavraSorteadaLista02.equals(letra)){
-                        letrasErradas[contador01] = letra;
-                    }
                     contador01++;
                     vidas01--;
                 }
 
                 if(palavraSorteadaLista02.contains(letra)) {
+                    verificadoLista02 = true;
                     for(int i=0; i<5; i++){
                         if(palavraSorteadaLista02.charAt(i) == letra.charAt(0)){
                             palavraSorteadaFormatadaLista02[i] = letra;
@@ -397,7 +395,7 @@ class jogoForca {
                             break;
                         
                     }
-
+                    verificadoLista02 = false;
                     contador++;
                     vidas02--;
 
@@ -426,23 +424,27 @@ class jogoForca {
                 System.out.print("\n\n");
 
                 //IMPRIME AS LETRAS ERRADAS JOGO 2
-                if(letrasErradas.length > 0){
-                    System.out.println("As letras erradas até o momento são: " );
-                    for (int i=0; i< 6; i++){
-                        if(letrasErradas[i] != null){
-                            System.out.print(letrasErradas[i] + " ");
-                        }
-                    }
-                }
+
                 System.out.print("\n\n");
-
-
-                System.out.print("1: " + venceu01);
-                System.out.print("2: " + venceu02);
 
                 if(venceu02 == true && venceu01 == true){
                     System.out.println("\n\nParabéns, vocês venceram!");
                     break;
+                }
+
+
+                // VERIFICA SE A LETRA DIGITADA ESTA PRESENTE NA PALAVRA 1 E 2 JOGO 2
+                if(verificadoLista01 == true || verificadoLista02 == true){
+                } else {
+                    letrasErradas[erroIndex] = letra;
+                    erroIndex++;
+                }
+                System.out.println("As letras erradas até o momento são: " );
+
+                for (int i=0; i< 6; i++){
+                    if(letrasErradas[i] != null){
+                        System.out.print(letrasErradas[i] + " ");
+                    }
                 }
             } while(vidas01 > 0 && vidas02 > 0);
 
