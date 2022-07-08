@@ -247,10 +247,10 @@ class jogoForca {
             }while (vidas > 0 && venceu == false);
 
             if(vidas == 0){ 
-                System.out.println("\nVocê perdeu!");
+                System.out.println("\u001B[31m" + "\n\nVoce Perdeu..." + "\u001B[0m");
                 System.out.println("\nPalavra secreta: " + palavraSorteada);
             } else if(venceu) {
-                System.out.println("\nVocê venceu!");
+                System.out.println("\u001B[32m" + "\n\nVoce Venceu!!!" + "\u001B[0m");
             }
             
             // PERGUNTA AO USUARIO SE QUER CONTINUAR JOGO 1
@@ -358,10 +358,6 @@ class jogoForca {
                 verificadoLista01 = false;
                 verificadoLista02 = false;
                 repetido = false;
-                if(segundaTentativa){
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
-                }
                 System.out.print("\n\nDigite uma letra (Sem acentos): ");
                 letra = entrada.next();
                 letra = letra.toUpperCase();
@@ -541,10 +537,11 @@ class jogoForca {
             } while(vidas01 > 0 && vidas02 > 0);
 
             if(vidas01 == 0 || vidas02 == 0 ){
-                System.out.println("\n\nVocê perdeu!");
+                System.out.println("\u001B[31m" + "\n\nVoce Perdeu" + "\u001B[0m");
                 System.out.println("\nPalavra Secreta 1: " + palavraSorteadaLista01);
                 System.out.println("\nPalavra Secreta 2: " + palavraSorteadaLista02);
             }
+            System.out.print("\n\n");
             System.out.print("Você deseja continuar? (S/N): ");
             resposta = entrada.next().charAt(0);
 
